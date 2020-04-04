@@ -9,6 +9,8 @@ import {
   } from "react-router-dom";
 
 import './app.css'
+import HomePage from '../pageComps/homePage.js'
+import DeathRollPage from '../pageComps/deathRollPage.js'
 
 class App extends React.Component{
 
@@ -30,7 +32,10 @@ class App extends React.Component{
             <Router>
                 <Switch>
                     <Route exact path='/'>
-                        <h1>HomePage Here</h1>
+                        <HomePage/>
+                    </Route>
+                    <Route exact path='/death-roll'>
+                        <DeathRollPage/>
                     </Route>
                     <Route path='/'>
                         <h1>404 Here</h1>
