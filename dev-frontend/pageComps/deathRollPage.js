@@ -11,7 +11,11 @@ class DeathRollPage extends React.Component{
                 team2: ''
             },
             drinks: 0,
-            coinSide: ''
+            coinSide: '',
+            activeTeam: '',
+            wager: 1,
+            spinVal: 0,
+            max:10
         }
     }
 
@@ -19,6 +23,9 @@ class DeathRollPage extends React.Component{
         var gamePhaseVar = this.state.gamePhase
         var team1Var = this.state.teams.team1
         var team2Var = this.state.teams.team2
+        var activeTeamVar = ''
+        var maxVal = 0
+
         if(gamePhaseVar<5){
             if(gamePhaseVar == 1 && team1Var == ''){
                 team1Var = 'Team 1'
@@ -26,16 +33,27 @@ class DeathRollPage extends React.Component{
             if(gamePhaseVar == 1 && team2Var == ''){
                 team2Var = 'Team 2'
             }
+            if(gamePhaseVar == 2 && this.state.coinSide == 'heads'){
+                activeTeamVar = 'Team 1'
+                maxVal = this.state.wager*10
+            }
+            if(gamePhaseVar == 2 && this.state.coinSide == 'tails'){
+                activeTeamVar = 'Team 2'
+                maxVal = this.state.wager*10
+            }
             gamePhaseVar=gamePhaseVar+1
         }else{
             gamePhaseVar=1
         }
+
         this.setState({
             gamePhase:gamePhaseVar,
             teams:{
                 team1:team1Var,
                 team2:team2Var
-            }
+            },
+            activeTeam:activeTeamVar,
+            max: maxVal
         })
     }
 
@@ -54,6 +72,11 @@ class DeathRollPage extends React.Component{
                     team1:this.state.teams.team1,
                     team2:event.target.value
                 }
+            });
+        }
+        if (event.target.id == 'wagerid'){
+            this.setState({
+                wager:event.target.value
             });
         }
         console.log(this.state)
@@ -76,6 +99,13 @@ class DeathRollPage extends React.Component{
                 })
             }
         }, 100);
+    }
+
+    roll = () =>{
+        var rollResult = Math.floor(Math.random() * (this.state.max))+1;
+        this.setState({
+            max:rollResult
+        })
     }
 
     render(){
@@ -133,20 +163,28 @@ class DeathRollPage extends React.Component{
                 {this.state.gamePhase==2 && this.state.coinSide == 'tails' &&
                     <div className='coinText' style={{'textAlign':'center'}}>
                         <h2 className='coinText'>{this.state.teams.team1+" will wager the following amount of drinks"}</h2>
-                        <input type='text'></input>
+                        <input id='wagerid' type='text' pattern="[0-9]*" maxLength='2' value={this.state.wager} onChange={this.handleChange}></input>
                         <button onClick={this.setGamePhase} className='submitButton'>Submit</button>
                     </div>
                 }
                 {this.state.gamePhase==2 && this.state.coinSide == 'heads' &&
                     <div className='coinText' style={{'textAlign':'center'}}>
                         <h2>{this.state.teams.team2+" will wager the following amount of drinks"}</h2>
-                        <input type='text'></input>
+                        <input id='wagerid' type='text' pattern="[0-9]*" maxLength='2' value={this.state.wager} onChange={this.handleChange}></input>
                         <button onClick={this.setGamePhase} className='submitButton'>Submit</button>
                     </div>
                 }
 
                 {this.state.gamePhase == 3 &&
                     <div className='flex-row'>
+                        <div className ='flex-column flex_spaceCenter' style={{'flex':'2'}}>
+                        </div>
+                        <div className ='flex-column flex_spaceCenter' style={{'flex':'1'}}>
+                            <h2>{this.state.max}</h2>
+                            <button className='submitButton' onClick={this.roll}>Roll</button>
+                        </div>
+                        <div className ='flex-column flex_spaceCenter' style={{'flex':'2'}}>
+                        </div>
                     </div>
                 }
             </div>
