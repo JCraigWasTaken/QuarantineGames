@@ -46,6 +46,7 @@ class DeathRollPage extends React.Component{
         }
         this.reloadNameFlipperAnimation = true;
         this.reloadNumberPopAnimation = false;
+        this.winAnimation = false;
         this.startVal = 0
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
@@ -167,7 +168,6 @@ class DeathRollPage extends React.Component{
 
     roll = () =>{
         var rollResult = Math.floor(Math.random() * (this.state.max))+1;
-
         if (rollResult != 1){
             var notActiveTeamVar = this.state.activeTeam.name;
             var notActiveTeamColorVar = this.state.activeTeam.color;
@@ -190,15 +190,15 @@ class DeathRollPage extends React.Component{
                 buttonDisabled: 'submitButtonDisabled',
                 popAnimation: ''
             })
-        }else{
+        }else if (rollResult == 1 && this.winAnimation == false && this.reloadNameFlipperAnimation == true){
+            console.log('hello')
             this.reloadNumberPopAnimation = false
             this.reloadNameFlipperAnimation = false
+            this.winAnimation = true
             this.setState({
                 start:this.state.max,
                 max:rollResult,
-                gamePhase: 4,
-                hideAnimation: 'hideAnimation 5s both',
-                rollEnabled: true,
+                rollEnabled: false,
                 buttonDisabled: 'submitButtonDisabled',
                 popAnimation: ''
             })
@@ -226,6 +226,15 @@ class DeathRollPage extends React.Component{
             this.reloadNameFlipperAnimation = true
             this.reloadNumberPopAnimation = false
         }
+        if (this.winAnimation == true){
+            this.setState({
+                start: this.state.max,
+                gamePhase: 4,
+                hideAnimation: 'hideAnimation 5s both',
+            })
+            this.startVal = this.state.max
+            this.winAnimation = false
+        }
     }
 
     rollTime = () => {
@@ -239,30 +248,26 @@ class DeathRollPage extends React.Component{
     }
 
     setBeerHeight = () =>{
-        var timeleft = (this.state.wager)+2
+        var timeleft = (this.state.wager)+3.5
         var trigger = false
-        var timeOriginal = ((timeleft-2)/10)+2
-        timeleft = ((timeleft-2)/10)+2
+        var timeOriginal = (((timeleft-3.5)/10)+3.5)*40
+        timeleft = (((timeleft-3.5)/10)+3.5)*40
         var timer = setInterval(()=>{
-            console.log('--------')
-            console.log(timeleft);
             if(timeleft < 0){
                 clearInterval(timer);
                 this.setGamePhase();
             }
-            if(timeOriginal-timeleft > 2 && trigger==false){
+            if((timeOriginal/40)-(timeleft/40) > 3.5 && trigger==false){
                 this.setGamePhase();
                 trigger = true
             }
-            console.log(timeOriginal)
-            console.log(100-(((timeleft+1)/(timeOriginal-2))*100)+'vh')
             this.setState({
-                notBeerHeight: 100-(((timeleft+1)/(timeOriginal-2))*100)+'vh',
-                beerHeight: (((timeleft+1)/(timeOriginal-2))*100)+'vh',
-                count: timeleft+1
+                notBeerHeight: (100-((timeleft)/(timeOriginal-140))*100)+'vh',
+                beerHeight: (((timeleft)/(timeOriginal-140))*100)+'vh',
+                count: Math.floor(timeleft/40)+1
             })
             timeleft -= 1;
-        }, 1000);
+        }, 25);
     }
 
     reset = (e) => {
@@ -354,10 +359,10 @@ class DeathRollPage extends React.Component{
                     <div className='flex-column flex_spaceCenter flex_stretch'>
                         <h2>Instructions</h2>
                         <div key='1'>1. Two people or teams choose to face off</div>
-                        <div key='1'>2. A coinflip happens to determine who chooses the wager</div>
-                        <div key='1'>3. The person/team makes a wager of a certain number of drinks, that number is multiplied by 10 and becomes the upperbound of the first death roll in the game</div>
-                        <div key='1'>4. Once the initial roll finishes, the number from the initial roll becomes the upper bound for the next roll</div>
-                        <div key='1'>5. The above process repeats until one team rolls a 1 and loses</div>
+                        <div key='2'>2. A coinflip happens to determine who chooses the wager</div>
+                        <div key='3'>3. The person/team makes a wager of a certain number of drinks, that number is multiplied by 10 and becomes the upperbound of the first death roll in the game</div>
+                        <div key='4'>4. Once the initial roll finishes, the number from the initial roll becomes the upper bound for the next roll</div>
+                        <div key='5'>5. The above process repeats until one team rolls a 1 and loses</div>
                         <button 
                         onClick={this.setGamePhase}
                         className='submitButton'>
