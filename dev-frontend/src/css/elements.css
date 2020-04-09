@@ -17,8 +17,8 @@ button{
 
 .submitButton:hover{
   color: #ffffff;
-  background: #3348FF;
-  border-color: #3348FF;
+  background: teal;
+  border-color: teal;
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }
