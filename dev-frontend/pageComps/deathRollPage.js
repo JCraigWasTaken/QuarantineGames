@@ -441,7 +441,7 @@ class DeathRollPage extends React.Component{
                         <Confetti
                             width={this.windowWidth}
                             height={this.windowHeight}/>
-                        <h2>Team {this.state.notActiveTeam.name} Loses</h2>
+                        <h2>{this.state.notActiveTeam.name} Loses</h2>
                         <h2>Is your team ready to drink?</h2>
                         <button className='submitButton' onClick={this.setGamePhase}>Ready to Drink</button>
                     </div>
