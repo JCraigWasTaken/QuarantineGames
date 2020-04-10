@@ -25,6 +25,57 @@
 
 /*Custom Classes*/
 
+.number {
+  position: relative;
+  vertical-align: center;
+  margin: 0 auto;
+  width: 30%;
+  height: 15%;
+}
+
+.suit {
+  position: relative;
+  margin: 0 auto;
+  height: 30%;
+}
+
+.red {
+  color: rgb(212, 0, 0);
+}
+
+.black {
+  color: rgb(0, 0, 0);
+}
+
+.suit#topleft {
+  vertical-align: top;
+  align-self: flex-start;
+}
+
+.suit#bottomright {
+  vertical-align: bottom;
+  align-self: flex-end;
+}
+
+.deathBoxBoardRow {
+  width: 50%;
+}
+
+.deathBoxBoardCard {
+  width: 7em;
+  height: 10em;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.deathBoxButtonList {
+
+}
+
+.deathBox {
+  display: flex;
+  flex-direction: row;
+}
+
 /*Mobile Custom Classes*/
 
 
