@@ -16,8 +16,8 @@
   border-color: #859573;
 }
 .color-background_primary{
-  background: #f5f5f3;
-  border-color:  #f5f5f3;
+  background: #ebebeb;
+  border-color:  #ebebeb;
 }
 .color-background_secondary{
   background: #27407F;
@@ -40,12 +40,14 @@ h1{
     font-size: 3rem;
     font-weight: 600;
     font-family: Raleway, sans-serif;
+    margin: 10px;
 }
 
 h2{
     font-size: 1.5rem;
     font-weight: 500;
     font-family: Raleway, sans-serif;
+    margin: 5px;
 }
 
 p, q, input, textarea, button{
@@ -69,6 +71,7 @@ a{
   font-weight: 400;
   font-family: Lato, sans-serif;
 }
+
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #8d8d8d;
