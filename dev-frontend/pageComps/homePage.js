@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react';
 
 class HomePage extends React.Component {
     render(){

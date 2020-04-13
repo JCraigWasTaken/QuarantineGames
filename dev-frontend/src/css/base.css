@@ -43,7 +43,7 @@ h1{
     margin: 10px;
 }
 
-h2{
+h2, th{
     font-size: 1.5rem;
     font-weight: 500;
     font-family: Raleway, sans-serif;
@@ -80,12 +80,12 @@ a{
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: #8d8d8d;
-  opacity: 0.95; 
+  opacity: 0.95;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: #8d8d8d;
-  opacity: 0.95; 
+  opacity: 0.95;
 }
 
 @media (max-width: 1200px){
