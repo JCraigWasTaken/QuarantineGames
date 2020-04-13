@@ -1,4 +1,4 @@
-let React = require('react');
+import React from 'react';
 import Club from '../media/club.png';
 import Diamond from '../media/diamond.png';
 import Heart from '../media/heart.png';
@@ -85,20 +85,13 @@ class Card extends React.Component {
     }
   }
 
-  handleCardClick = e => {
-    console.log(e);
-    console.log(e.target);
-    console.log(e.target.suit);
-    console.log(e.target.number);
-  }
-
   render() {
     let number = this.props.number;
     let suit = this.getSuit();
     let colour = this.getColour();
 
     return (
-      <button type='button' onClick={this.handleCardClick} row={this.props.row} column={this.props.column}>
+      <div>
           <div>
             <img src={suit} className='suit' id='topleft'/>
           </div>
@@ -108,7 +101,7 @@ class Card extends React.Component {
           <div>
             <img src={suit} className='suit' id='bottomright'/>
           </div>
-      </button>
+      </div>
     )
   }
 }

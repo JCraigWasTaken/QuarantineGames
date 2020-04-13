@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 class DeathBoxChoice extends React.Component {
   constructor(props) {
@@ -6,51 +6,65 @@ class DeathBoxChoice extends React.Component {
   }
 
   handleChoiceClick = e => {
-    this.props.handleChoiceClick(e.target.id);
-  }
-
-  handlePileClick = () => {
-    this.props.handlePileClick(0, 0);
+    this.props.handleChoiceClick(parseInt(e.target.id));
   }
 
   render() {
-    let selectedButton = this.props.selectedButton;
-    let message = this.props.message;
-    let showNext = this.props.showNext;
-    let nextCard = this.props.nextCard;
-
     return(
       <div className='deathBoxButtonChoice'>
         <div>
           <button
-            type="button"
-            id='Higher'
-            className={'deathBoxButton' + (selectedButton === 'Higher' ? 'selected' : '')}
+            type='button'
+            id={1}
+            className={'submitButton' + (this.props.drinkCount >= 0 || !this.props.readyToPlay ? 'Disabled' : (this.props.selectedButton === 1 ? 'Selected' : ''))}
             onClick={this.handleChoiceClick}>
               Higher
           </button>
         </div>
         <div>
           <button
-            type="button"
-            id='Lower'
-            className={'deathBoxButton' + (selectedButton === 'Lower' ? 'selected' : '')}
+            type='button'
+            id={-1}
+            className={'submitButton' + (this.props.drinkCount >= 0 || !this.props.readyToPlay ? 'Disabled' : (this.props.selectedButton === -1 ? 'Selected' : ''))}
             onClick={this.handleChoiceClick}>
               Lower
           </button>
         </div>
-        <div>
-          <button
-            type="button"
-            id='Lower'
-            className={'deathBoxButton' + (selectedButton === 'Lower' ? 'selected' : '')}
-            onClick={this.handlePileClick}>
-              Select Pile
-          </button>
-        </div>
-        <div>
-          <h3>{message}</h3>
-        </div>
+        {this.props.readyToPlay &&
+          <div>
+            <div>
+              <p>Guesses Remaining: {this.props.remainingToPass}</p>
+            </div>
+            <div>
+              <h2>{this.props.message}</h2>
+            </div>
+            {this.props.drinkCount >= 0 &&
+              <div>
+                <div>
+                  <p>Ready to Drink?</p>
+                </div>
+                <div>
+                  <h1>{this.props.drinkCount}</h1>
+                </div>
+                {this.props.getReadyToDrink &&
+                  <div>
+                    <button
+                      type='button'
+                      onClick={this.props.handleTimerClick}
+                      className='submitButton' >
+                        Ready!
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+        {!this.props.readyToPlay &&
+          <div>
+            <h2>Please add at least 2 players.</h2>
+          </div>
+        }
       </div>
     );
   }

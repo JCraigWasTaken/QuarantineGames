@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from '../comps/card.js';
 
 class DeathBoxBoard extends React.Component {
   constructor(props) {
@@ -12,7 +11,9 @@ class DeathBoxBoard extends React.Component {
 
     for (let i = 0; i < numRows; i++) {
       rows.push(
-        <tr key={i} className='deathBoxBoardRow'>
+        <tr
+          className='deathBoxBoardRow'
+          key={i} >
           {this.getRow(i)}
         </tr>
       );
@@ -26,7 +27,11 @@ class DeathBoxBoard extends React.Component {
     let row = [];
     for (let i = 0; i < numCols; i++) {
       row.push(
-        <td className='deathBoxBoardCard rcorners5' key={rowNumber + i}>
+        <td
+          onClick={this.handleCellClick}
+          className='deathBoxBoardCard rcorners5'
+          key={rowNumber + i}
+          id={rowNumber + '~' + i}>
           {this.props.cards[rowNumber][i]}
         </td>
       );
@@ -35,13 +40,15 @@ class DeathBoxBoard extends React.Component {
   }
 
   handleCellClick = e => {
-    console.log(e);
-    console.log(e.target);
+    let idComponents = e.currentTarget.id.split('~');
+    let row = idComponents[0];
+    let column = idComponents[1];
+    this.props.handlePileClick(row, column);
   }
 
   render() {
     return (
-      <table>
+      <table className="deathBoxBoard">
         <tbody>
           {this.getRows()}
         </tbody>
