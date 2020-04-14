@@ -57,14 +57,17 @@ class DeathBoxPage extends React.Component {
     return piles;
   }
 
-  getVisibleCards = () => {
+  getPiles = () => {
     let piles = this.state.piles;
     let visibleCards = [[]];
 
     for (let i = 0; i < piles.length; i++) {
       visibleCards[i] = [];
       for (let j = 0; j < piles[i].length; j++) {
-        visibleCards[i].push(piles[i][j].getTopCard());
+        visibleCards[i].push({
+          'card': piles[i][j].getTopCard(),
+          'height': piles[i][j].getHeight()
+        });
       }
     }
 
@@ -337,6 +340,10 @@ class DeathBoxPage extends React.Component {
 
   handleAddPlayerClick = player => {
     let players = this.state.players.slice();
+    if (players.filter(p => p.name === player).length > 0) {
+      return;
+    }
+
     players.push({
       'name': player,
       'drinks': 0
@@ -354,7 +361,7 @@ class DeathBoxPage extends React.Component {
     const index = players.findIndex(p => p.name === player);
     players.splice(index, 1);
 
-    const currentPlayer = this.state.currentPlayer === player ? players[index].name : this.state.currentPlayer;
+    const currentPlayer = this.state.currentPlayer === player ? (players.length > 0 ? players[index].name : this.state.currentPlayer) : '';
     this.setState({
       players: players,
       currentPlayer: currentPlayer
@@ -378,15 +385,18 @@ class DeathBoxPage extends React.Component {
       window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateWindowDimensions() {
-      this.setState({ windowWidth: window.innerWidth, windowHeight: window.innerHeight });
+  updateWindowDimensions = () => {
+      this.setState({
+        windowWidth: window.innerWidth,
+        windowHeight: window.innerHeight
+      });
   }
 
   render() {
     return (
       <div className="deathBox">
         <DeathBoxBoard
-          cards={this.getVisibleCards()}
+          piles={this.getPiles()}
           handlePileClick={this.handlePileClick} />
         <DeathBoxChoice
           readyToPlay={this.state.players.length >= 2}

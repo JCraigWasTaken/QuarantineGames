@@ -92,15 +92,15 @@ class Card extends React.Component {
 
     return (
       <div>
-          <div>
-            <img src={suit} className='suit' id='topleft'/>
-          </div>
-          <div>
-            <h1 className={'number ' + colour}>{number}</h1>
-          </div>
-          <div>
-            <img src={suit} className='suit' id='bottomright'/>
-          </div>
+        <div className='left'>
+          <img src={suit} className='suit' />
+        </div>
+        <div>
+          <h1 className={'number ' + colour}>{number}</h1>
+        </div>
+        <div className='right'>
+          <img src={suit} className='suit' />
+        </div>
       </div>
     )
   }

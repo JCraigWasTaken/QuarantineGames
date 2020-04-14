@@ -134,6 +134,15 @@ input{
   position: relative;
   margin: 0 auto;
   height: 30%;
+  padding: 1px;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
 }
 
 .red {
@@ -144,24 +153,19 @@ input{
   color: rgb(0, 0, 0);
 }
 
-.suit#topleft {
-  vertical-align: top;
-  align-self: flex-start;
-}
-
-.suit#bottomright {
-  vertical-align: bottom;
-  align-self: flex-end;
-}
-
 .deathBoxBoard {
   min-width: 35%;
 }
 
 .deathBoxBoardCard {
-  width: 7em;
-  height: 10em;
+  width: 5.5em;
+  height: 8em;
   border: 1px solid rgb(0, 0, 0);
+}
+
+
+.deathBoxBoardCount {
+  text-align: center;
 }
 
 .deathBoxButtonChoice {
