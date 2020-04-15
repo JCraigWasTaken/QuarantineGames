@@ -65,21 +65,13 @@ button{
   transition: all 0.4s ease 0s;
 }
 
-.littleSubmitButton{
-  color: #494949;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #ffffff;
-  padding: 10px;
-  border: 2px solid #494949;
-  display: inline-block;
-  transition: all 0.4s ease 0s;
-}
-
 /*Images*/
 
+img {
+  height: 100%;
+}
+
 .removeImage {
-  display: block;
   max-width: 10px;
   max-height: 10px;
   width: auto;
@@ -87,7 +79,14 @@ button{
 }
 
 .currentPlayerImage {
-  display: block;
+  max-width: 20px;
+  max-height: 15px;
+  width: auto;
+  height: auto;
+}
+
+.cryingBabyImage {
+  display: inline;
   max-width: 20px;
   max-height: 15px;
   width: auto;
@@ -96,7 +95,7 @@ button{
 
 /*Forms/Text Fields*/
 
-input{
+input {
   border: 1px solid #494949;
   margin:25px;
 }
@@ -106,8 +105,23 @@ input{
   padding-right: 5px;
 }
 
-.currentPlayer {
-  min-width: 2em;
+.baby {
+  min-width: 5em;
+  padding-right: 5px;
+}
+
+.smallImageColumn {
+  min-width: 1em;
+  text-align: center;
+}
+
+.imageColumn {
+  min-width: 3em;
+  text-align: center;
+}
+
+.textColumn {
+  min-width: 7em;
 }
 
 .drinks {
@@ -122,18 +136,53 @@ input{
 
 /*Custom Classes*/
 
-.number {
-  position: relative;
-  vertical-align: center;
-  margin: 0 auto;
-  width: 30%;
-  height: 15%;
+.big-popup {
+  position: fixed;
+  max-width: 1400px;
+  max-height: 620px;
+  width: 90vw;
+  height: 92vh;
+  top: 4vh;
+  bottom: 4vh;
+  left: 5vw;
+  right: 5vw;
+  margin: auto;
+  background-color: black;
+  border-radius: 5px;
+  z-index: 1;
 }
 
-.suit {
-  position: relative;
-  margin: 0 auto;
-  height: 30%;
+.small-popup {
+  position: fixed;
+  max-width: 600px;
+  max-height: 400px;
+  width: 60vw;
+  height: 50vh;
+  top: 25vh;
+  bottom: 25vh;
+  left: 20vw;
+  right: 20vw;
+  margin: auto;
+  background-color: black;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1;
+}
+
+.popup-content {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+  background: white;
+  border-radius: 5px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.spacing {
+  padding-top: 1em;
 }
 
 .red {
@@ -144,44 +193,84 @@ input{
   color: rgb(0, 0, 0);
 }
 
-.suit#topleft {
-  vertical-align: top;
-  align-self: flex-start;
+.card {
+  height: 0;
+  overflow: hidden;
+  border: 1px solid black;
+  width: 8vw;
+  height: 11.2vw;
+  margin-right: 30px;
+  position: relative;
+  background: white;
 }
 
-.suit#bottomright {
-  vertical-align: bottom;
-  align-self: flex-end;
+.card-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.deathBoxBoard {
-  min-width: 35%;
+.card-suit {
+  height: 33%;
+  max-height: 5vw;
+  align-content: center;
 }
 
-.deathBoxBoardCard {
-  width: 7em;
-  height: 10em;
-  border: 1px solid rgb(0, 0, 0);
+.card-number {
+  height: 34%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-number h1 {
+  margin: 0;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
 }
 
 .deathBoxButtonChoice {
   display: flex;
   flex-direction: column;
-  min-width: 25%;
-  max-width: 33%;
+  width: 25%;
+  height: 100%;
   text-align: center;
 }
 
 .deathBoxPlayers {
   display: flex;
   flex-direction: column;
-  min-width: 30%;
+  width: 40%;
+  height: 100%;
   text-align: center;
+}
+
+.playersTable {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.deathBoxBoard {
+  width: 35%;
+  height: 100%;
 }
 
 .deathBox {
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 /*Mobile Custom Classes*/
