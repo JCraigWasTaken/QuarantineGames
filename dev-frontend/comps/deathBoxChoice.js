@@ -60,11 +60,6 @@ class DeathBoxChoice extends React.Component {
             }
           </div>
         }
-        {!this.props.readyToPlay &&
-          <div>
-            <h2>Please add at least 2 players.</h2>
-          </div>
-        }
       </div>
     );
   }

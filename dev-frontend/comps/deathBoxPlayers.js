@@ -1,13 +1,15 @@
 import React from 'react';
 import Remove from '../media/remove.png';
 import RightArrow from '../media/right-arrow.png';
+import Baby from '../media/crying-baby.png';
 
 class DeathBoxPlayers extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      newPlayer: ''
+      newPlayer: '',
+      showHowToPlay: false
     };
   }
 
@@ -33,24 +35,31 @@ class DeathBoxPlayers extends React.Component {
     this.props.onRemovePlayerClick(player);
   }
 
+  handleBabyClick = () => {
+    this.props.onBabyClick();
+  }
+
   getPlayers = () => {
     const players = this.props.players;
     let playerElements = [];
     for (let i = 0; i < players.length; i++) {
       playerElements.push(
-        <tr id={players[i].name} key={players[i].name}>
-          <td className='currentPlayer'>
-            {players[i].name === this.props.currentPlayer ? <img src={RightArrow} className='currentPlayerImage'/> : null}
+        <tr className='player-row' id={players[i].name} key={players[i].name}>
+          <td className='smallImageColumn'>
+            {players[i].name === this.props.currentPlayer && <img src={RightArrow} className='currentPlayerImage'/>}
           </td>
-          <td className='player'>
+          <td className='textColumn left'>
             <p>{players[i].name}</p>
           </td>
-          <td className='drinks'>
+          <td className='textColumn center'>
             <p>{players[i].drinks}</p>
+          </td>
+          <td className='imageColumn' onClick={this.handleBabyClick}>
+            {players[i].name === this.props.currentPlayer && <img src={Baby} className='cryingBabyImage'/>}
           </td>
           <td
             id={players[i].name}
-            className='removePlayer'
+            className='imageColumn'
             onClick={this.handleRemovePlayerClick} >
             <img src={Remove} className='removeImage' />
           </td>
@@ -61,13 +70,14 @@ class DeathBoxPlayers extends React.Component {
       return playerElements;
     } else {
       return (
-        <table className='players'>
+        <table className='playersTable'>
           <thead>
             <tr>
-              <th className='currentPlayer'></th>
-              <th className='player'>Players</th>
-              <th className='drinks'>Drink Count</th>
-              <th></th>
+              <th className='smallImageColumn'></th>
+              <th className='center'>Players</th>
+              <th className='center'>Drinks</th>
+              <th className='imageColumn'>Baby</th>
+              <th className='imageColumn'>Kick</th>
             </tr>
           </thead>
           <tbody>
@@ -79,22 +89,23 @@ class DeathBoxPlayers extends React.Component {
   }
 
   render() {
-    const players = this.getPlayers();
-
     return (
       <div className='deathBoxPlayers'>
-        <form onSubmit={this.handleAddPlayerClick}>
+        <div>
+         <button className='submitButton' onClick={this.props.onHowToPlayClick}>What is going on?</button>
+        </div>
+        {this.props.players.length < 2 &&
+          <div>
+            <h2>Please add at least 2 players.</h2>
+          </div>
+        }
+        <form className='center' onSubmit={this.handleAddPlayerClick}>
           <button type='submit' className='submitButton'>Add Player</button>
           <input id='newPlayer' value={this.state.newPlayer} onChange={this.handleNewPlayerChange} autoComplete='off'/>
         </form>
         <div>
-          {players}
+          {this.getPlayers()}
         </div>
-        {this.props.players.length >= 2 &&
-          <div>
-            <button type='button' className='littleSubmitButton' onClick={this.props.onBabyClick}>I'm a baby :(</button>
-          </div>
-        }
       </div>
     )
   }

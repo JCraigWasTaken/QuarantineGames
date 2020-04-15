@@ -50,10 +50,15 @@ h2, th{
     margin: 5px;
 }
 
-p, q, input, textarea, button{
+p, q, input, textarea, button, li{
     font-size: 1.25rem;
     font-weight: 400;
     font-family: Lato, sans-serif;
+}
+
+ul {
+  margin-left: 2rem;
+  list-style-type: disc;
 }
 
 q{

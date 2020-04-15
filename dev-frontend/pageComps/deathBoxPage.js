@@ -1,9 +1,10 @@
 import React from 'react';
 import DeathBoxBoard from '../comps/deathBoxBoard.js';
 import DeathBoxChoice from '../comps/deathBoxChoice.js';
+import DeathBoxHowToPlay from '../comps/deathBoxHowToPlay.js';
 import DeathBoxPlayers from '../comps/deathBoxPlayers.js';
 import Card from '../comps/card.js';
-import Pile from '../comps/pile.js';
+import GameOver from '../comps/gameOver.js';
 
 class DeathBoxPage extends React.Component {
   constructor(props) {
@@ -26,7 +27,9 @@ class DeathBoxPage extends React.Component {
       currentPlayer: '',
       getReadyToDrink: false,
       windowWidth: 0,
-      windowHeight: 0
+      windowHeight: 0,
+      gameOver: false,
+      showHowToPlay: false
     };
   }
 
@@ -82,13 +85,28 @@ class DeathBoxPage extends React.Component {
     // Update player drink count
     const players = this.updateDrinkCount(drinkResults['count']);
 
-    // Check if pile reorganization is required
-    piles = this.reorganizePiles(availableCards, piles);
+    // check if game over
+    const gameOver = this.gameOver(availableCards, piles);
 
-    const nextPlayer = this.setNextPlayer(drinkResults['remainingToPass']);
+    let nextPlayer;
+    let passingResults;
 
-    // Update number of correct answers required in a row to pass
-    const passingResults = this.updatePassingRequirements(piles, drinkResults['remainingToPass']);
+    if (!gameOver) {
+      // Check if pile reorganization is required
+      piles = this.reorganizePiles(availableCards, piles);
+
+      // Update current player
+      nextPlayer = this.setNextPlayer(drinkResults['remainingToPass']);
+
+      // Update number of correct answers required in a row to pass
+      passingResults = this.updatePassingRequirements(piles, drinkResults['remainingToPass']);
+    } else {
+      nextPlayer = this.state.currentPlayer;
+      passingResults = {
+        'required': 0,
+        'remaining': 0
+      };
+    }
 
     this.setState({
       selectedChoice: 0,
@@ -100,7 +118,8 @@ class DeathBoxPage extends React.Component {
       requiredToPass: passingResults['required'],
       remainingToPass: passingResults['remaining'],
       players: players,
-      currentPlayer: nextPlayer
+      currentPlayer: nextPlayer,
+      gameOver: gameOver
     });
   }
 
@@ -182,6 +201,13 @@ class DeathBoxPage extends React.Component {
       'count': count,
       'remainingToPass': remainingToPass
     };
+  }
+
+  gameOver = (availableCards, piles) => {
+    if (availableCards.length === 0 && piles.length === 1 && piles[0].length === 1) {
+      return true;
+    }
+    return false;
   }
 
   reorganizePiles = (availableCards, piles) => {
@@ -372,6 +398,38 @@ class DeathBoxPage extends React.Component {
     });
   }
 
+  handlePlayAgainClick = () => {
+    console.log('Play Again!');
+    const availableCards = this.initializeAvailableCards();
+    const piles = this.initializePiles(availableCards);
+    const passCount = 3;
+    this.timer = 0;
+
+    this.setState({
+      selectedChoice: 0,
+      availableCards: availableCards,
+      piles: piles,
+      requiredToPass: passCount,
+      remainingToPass: passCount,
+      choiceMessage: null,
+      drinkCount: -1,
+      getReadyToDrink: false,
+      gameOver: false
+    });
+  }
+
+  handleHowToPlayClick = () => {
+    this.setState({
+      showHowToPlay: true
+    });
+  }
+
+  handleCloseHowToPlayClick = () => {
+    this.setState({
+      showHowToPlay: false
+    });
+  }
+
   componentDidMount() {
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
@@ -391,6 +449,8 @@ class DeathBoxPage extends React.Component {
   render() {
     return (
       <div className="deathBox">
+        {this.state.showHowToPlay && <DeathBoxHowToPlay close={this.handleCloseHowToPlayClick} />}
+        {this.state.gameOver && this.state.drinkCount < 0 && <GameOver newGame={this.handlePlayAgainClick}/>}
         <DeathBoxBoard
           piles={this.state.piles}
           handlePileClick={this.handlePileClick} />
@@ -408,7 +468,8 @@ class DeathBoxPage extends React.Component {
           currentPlayer={this.state.currentPlayer}
           onAddPlayerClick={this.handleAddPlayerClick}
           onRemovePlayerClick={this.handleRemovePlayerClick}
-          onBabyClick={this.handleBabyClick} />
+          onBabyClick={this.handleBabyClick}
+          onHowToPlayClick={this.handleHowToPlayClick} />
       </div>
     );
   }

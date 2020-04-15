@@ -65,17 +65,6 @@ button{
   transition: all 0.4s ease 0s;
 }
 
-.littleSubmitButton{
-  color: #494949;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #ffffff;
-  padding: 10px;
-  border: 2px solid #494949;
-  display: inline-block;
-  transition: all 0.4s ease 0s;
-}
-
 /*Images*/
 
 img {
@@ -83,7 +72,6 @@ img {
 }
 
 .removeImage {
-  display: block;
   max-width: 10px;
   max-height: 10px;
   width: auto;
@@ -91,7 +79,14 @@ img {
 }
 
 .currentPlayerImage {
-  display: block;
+  max-width: 20px;
+  max-height: 15px;
+  width: auto;
+  height: auto;
+}
+
+.cryingBabyImage {
+  display: inline;
   max-width: 20px;
   max-height: 15px;
   width: auto;
@@ -110,8 +105,23 @@ input {
   padding-right: 5px;
 }
 
-.currentPlayer {
-  min-width: 2em;
+.baby {
+  min-width: 5em;
+  padding-right: 5px;
+}
+
+.smallImageColumn {
+  min-width: 1em;
+  text-align: center;
+}
+
+.imageColumn {
+  min-width: 3em;
+  text-align: center;
+}
+
+.textColumn {
+  min-width: 7em;
 }
 
 .drinks {
@@ -125,6 +135,56 @@ input {
 }
 
 /*Custom Classes*/
+
+.big-popup {
+  position: fixed;
+  max-width: 1400px;
+  max-height: 620px;
+  width: 90vw;
+  height: 92vh;
+  top: 4vh;
+  bottom: 4vh;
+  left: 5vw;
+  right: 5vw;
+  margin: auto;
+  background-color: black;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.small-popup {
+  position: fixed;
+  max-width: 600px;
+  max-height: 400px;
+  width: 60vw;
+  height: 50vh;
+  top: 25vh;
+  bottom: 25vh;
+  left: 20vw;
+  right: 20vw;
+  margin: auto;
+  background-color: black;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1;
+}
+
+.popup-content {
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+  background: white;
+  border-radius: 5px;
+  padding: 5px;
+  overflow-y: auto;
+}
+
+.spacing {
+  padding-top: 1em;
+}
+
 .red {
   color: rgb(212, 0, 0);
 }
@@ -176,6 +236,10 @@ input {
   text-align: right;
 }
 
+.center {
+  text-align: center;
+}
+
 .deathBoxButtonChoice {
   display: flex;
   flex-direction: column;
@@ -190,6 +254,11 @@ input {
   width: 40%;
   height: 100%;
   text-align: center;
+}
+
+.playersTable {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .deathBoxBoard {
