@@ -9,13 +9,16 @@ class Card extends React.Component {
     super(props);
   }
 
-  static generateAllCards = handleClick => {
+  static generateAllCards = () => {
     let suits = ['spade', 'club', 'heart', 'diamond'];
     let numbers = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     let cards = [];
     for (let i = 0; i < suits.length; i++) {
       for (let j = 0; j < numbers.length; j++) {
-        cards.push(<Card suit={suits[i]} number={numbers[j]} row={i} column={j} handleClick={handleClick} />);
+        cards.push({
+          'suit': suits[i],
+          'number': numbers[j]
+        });
       }
     }
     return cards;
@@ -48,7 +51,7 @@ class Card extends React.Component {
 
   static getCardValue = card => {
     let value;
-    let number = card.props.number;
+    let number = card.number;
     if (number === 'A') {
       value = 1;
     } else if (number === 'J') {
@@ -91,17 +94,21 @@ class Card extends React.Component {
     let colour = this.getColour();
 
     return (
-      <div>
-        <div className='left'>
-          <img src={suit} className='suit' />
+        <div
+          className='card rcorners5'
+          style={{boxShadow:this.props.shadow}}>
+          <div className='card-inside'>
+            <div className='card-suit left'>
+              <img src={suit} />
+            </div>
+            <div className='card-number'>
+              <h1 className={colour}>{number}</h1>
+            </div>
+            <div className='card-suit right'>
+              <img src={suit} />
+            </div>
+          </div>
         </div>
-        <div>
-          <h1 className={'number ' + colour}>{number}</h1>
-        </div>
-        <div className='right'>
-          <img src={suit} className='suit' />
-        </div>
-      </div>
     )
   }
 }

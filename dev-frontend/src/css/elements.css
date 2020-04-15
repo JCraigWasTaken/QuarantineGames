@@ -78,6 +78,10 @@ button{
 
 /*Images*/
 
+img {
+  height: 100%;
+}
+
 .removeImage {
   display: block;
   max-width: 10px;
@@ -96,7 +100,7 @@ button{
 
 /*Forms/Text Fields*/
 
-input{
+input {
   border: 1px solid #494949;
   margin:25px;
 }
@@ -121,20 +125,47 @@ input{
 }
 
 /*Custom Classes*/
-
-.number {
-  position: relative;
-  vertical-align: center;
-  margin: 0 auto;
-  width: 30%;
-  height: 15%;
+.red {
+  color: rgb(212, 0, 0);
 }
 
-.suit {
+.black {
+  color: rgb(0, 0, 0);
+}
+
+.card {
+  height: 0;
+  overflow: hidden;
+  border: 1px solid black;
+  width: 8vw;
+  height: 11.2vw;
   position: relative;
-  margin: 0 auto;
-  height: 30%;
-  padding: 1px;
+  background: white;
+}
+
+.card-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-suit {
+  height: 33%;
+  max-height: 5vw;
+  align-content: center;
+}
+
+.card-number {
+  height: 34%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-number h1 {
+  margin: 0;
 }
 
 .left {
@@ -145,47 +176,31 @@ input{
   text-align: right;
 }
 
-.red {
-  color: rgb(212, 0, 0);
-}
-
-.black {
-  color: rgb(0, 0, 0);
-}
-
-.deathBoxBoard {
-  min-width: 35%;
-}
-
-.deathBoxBoardCard {
-  width: 5.5em;
-  height: 8em;
-  border: 1px solid rgb(0, 0, 0);
-}
-
-
-.deathBoxBoardCount {
-  text-align: center;
-}
-
 .deathBoxButtonChoice {
   display: flex;
   flex-direction: column;
-  min-width: 25%;
-  max-width: 33%;
+  width: 25%;
+  height: 100%;
   text-align: center;
 }
 
 .deathBoxPlayers {
   display: flex;
   flex-direction: column;
-  min-width: 30%;
+  width: 40%;
+  height: 100%;
   text-align: center;
+}
+
+.deathBoxBoard {
+  width: 35%;
+  height: 100%;
 }
 
 .deathBox {
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 /*Mobile Custom Classes*/

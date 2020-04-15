@@ -1,4 +1,5 @@
 import React from 'react';
+import Pile from '../comps/pile.js';
 
 class DeathBoxBoard extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class DeathBoxBoard extends React.Component {
     for (let i = 0; i < numRows; i++) {
       rows.push(
         <tr
-          className='deathBoxBoardRow'
           key={i} >
           {this.getRow(i)}
         </tr>
@@ -29,10 +29,9 @@ class DeathBoxBoard extends React.Component {
       row.push(
         <td
           onClick={this.handleCellClick}
-          className='deathBoxBoardCard rcorners5'
           key={rowNumber + i}
           id={rowNumber + '~' + i}>
-          {this.props.piles[rowNumber][i].card}
+            <Pile cards={this.props.piles[rowNumber][i].cards} />
         </td>
       );
     }

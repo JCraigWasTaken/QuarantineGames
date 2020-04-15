@@ -45,10 +45,9 @@ class DeathBoxPage extends React.Component {
       piles[i] = [];
 
       for (let j = 0; j < initialSideCount; j++) {
-
-        let pile = new Pile();
-        pile.addCard(cards[initialSideCount * i + j]);
-        piles[i].push(pile);
+        piles[i].push({
+          'cards': [cards[initialSideCount * i + j]]
+        });
         countToRemove++;
       }
     }
@@ -56,29 +55,6 @@ class DeathBoxPage extends React.Component {
     cards.splice(0, countToRemove);
     return piles;
   }
-
-  getPiles = () => {
-    let piles = this.state.piles;
-    let visibleCards = [[]];
-
-    for (let i = 0; i < piles.length; i++) {
-      visibleCards[i] = [];
-      for (let j = 0; j < piles[i].length; j++) {
-        visibleCards[i].push({
-          'card': piles[i][j].getTopCard(),
-          'height': piles[i][j].getHeight()
-        });
-      }
-    }
-
-    return visibleCards;
-  }
-
-  getNextCard = () => {
-    let availableCards = this.sate.availableCards.slice();
-    return availableCards.splice(0, 1);
-  }
-
 
   handleChoiceClick = choice => {
     let selectedChoice = this.state.selectedChoice;
@@ -177,15 +153,15 @@ class DeathBoxPage extends React.Component {
     const requiredToPass = this.state.requiredToPass;
     let remainingToPass = this.state.remainingToPass;
     const pile = piles[row][column];
-    const topCard = pile.getTopCard();
+    const topCard = pile.cards[0];
 
     const nextAvailableCard = availableCards[0];
     const comparison = Card.compareCards(nextAvailableCard, topCard);
 
-    pile.addCard(nextAvailableCard);
+    pile.cards.unshift(nextAvailableCard);
     piles[row][column] = pile;
     availableCards.splice(0, 1);
-    let count = pile.getHeight();
+    let count = pile.cards.length;
 
     let message;
     if (comparison === 0) {
@@ -239,7 +215,7 @@ class DeathBoxPage extends React.Component {
           newPiles.push(piles[i]);
         } else {
           for (let j = 0; j < numColumns; j++) {
-            availableCards.push(...piles[i][j].getCards());
+            availableCards.push(...piles[i][j].cards);
           }
         }
       }
@@ -252,7 +228,7 @@ class DeathBoxPage extends React.Component {
           if (j !== largestColumn['index']) {
             newRow.push(piles[i][j]);
           } else {
-            availableCards.push(...piles[i][j].getCards());
+            availableCards.push(...piles[i][j].cards);
           }
         }
         newPiles.push(newRow);
@@ -282,7 +258,7 @@ class DeathBoxPage extends React.Component {
   getRowCount = row => {
     let count = 0;
     for (let i = 0; i < row.length; i++) {
-      count += row[i].getHeight();
+      count += row[i].cards.length;
     }
     return count;
   }
@@ -307,7 +283,7 @@ class DeathBoxPage extends React.Component {
   getColumnCount = (piles, columnNumber) => {
     let count = 0;
     for (let i = 0; i < piles.length; i++) {
-      count += piles[i][columnNumber].getHeight();
+      count += piles[i][columnNumber].cards.length;
     }
     return count;
   }
@@ -369,11 +345,12 @@ class DeathBoxPage extends React.Component {
   }
 
   handleBabyClick = () => {
-    console.log('Im a baby.');
     const player = this.setNextPlayer(0);
+    const requiredToPass = this.state.requiredToPass;
     this.setState({
-      currentPlayer: player
-    })
+      currentPlayer: player,
+      remainingToPass: requiredToPass
+    });
   }
 
   componentDidMount() {
@@ -396,7 +373,7 @@ class DeathBoxPage extends React.Component {
     return (
       <div className="deathBox">
         <DeathBoxBoard
-          piles={this.getPiles()}
+          piles={this.state.piles}
           handlePileClick={this.handlePileClick} />
         <DeathBoxChoice
           readyToPlay={this.state.players.length >= 2}
