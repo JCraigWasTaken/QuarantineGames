@@ -337,7 +337,26 @@ class DeathBoxPage extends React.Component {
     const index = players.findIndex(p => p.name === player);
     players.splice(index, 1);
 
-    const currentPlayer = this.state.currentPlayer === player ? (players.length > 0 ? players[index].name : this.state.currentPlayer) : '';
+    console.log(player);
+    console.log(this.state.currentPlayer);
+    console.log(index);
+
+    let currentPlayer = this.state.currentPlayer;
+    // if removing current player
+    if (currentPlayer === player) {
+      // if there are still players remaining
+      if (players.length > 0) {
+        // if removed last player
+        if (players.length >= index) {
+          currentPlayer = players[0].name;
+        } else {
+          currentPlayer = players[index].name;
+        }
+      } else {
+        currentPlayer = '';
+      }
+    }
+
     this.setState({
       players: players,
       currentPlayer: currentPlayer
