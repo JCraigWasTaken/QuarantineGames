@@ -155,11 +155,11 @@ input {
 .small-popup {
   position: fixed;
   max-width: 600px;
-  max-height: 400px;
+  max-height: 600px;
   width: 60vw;
-  height: 50vh;
-  top: 25vh;
-  bottom: 25vh;
+  height: 60vh;
+  top: 20vh;
+  bottom: 20vh;
   left: 20vw;
   right: 20vw;
   margin: auto;
@@ -239,6 +239,11 @@ input {
 
 .center {
   text-align: center;
+}
+
+.justified {
+  text-align: justify;
+  text-justify: auto;
 }
 
 .deathBoxButtonChoice {

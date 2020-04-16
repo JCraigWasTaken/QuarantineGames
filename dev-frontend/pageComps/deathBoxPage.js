@@ -1,6 +1,7 @@
 import React from 'react';
 import DeathBoxBoard from '../comps/deathBoxBoard.js';
 import DeathBoxChoice from '../comps/deathBoxChoice.js';
+import DeathBoxDisclaimer from '../comps/deathBoxDisclaimer.js';
 import DeathBoxHowToPlay from '../comps/deathBoxHowToPlay.js';
 import DeathBoxPlayers from '../comps/deathBoxPlayers.js';
 import Card from '../comps/card.js';
@@ -16,6 +17,7 @@ class DeathBoxPage extends React.Component {
     this.timer = 0;
 
     this.state = {
+      firstLoad: true,
       selectedChoice: 0,
       availableCards: availableCards,
       piles: piles,
@@ -430,6 +432,12 @@ class DeathBoxPage extends React.Component {
     });
   }
 
+  handleCloseDisclaimerClick = () => {
+    this.setState({
+      firstLoad: false
+    })
+  }
+
   componentDidMount() {
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
@@ -449,8 +457,9 @@ class DeathBoxPage extends React.Component {
   render() {
     return (
       <div className="deathBox">
+        {this.state.firstLoad && <DeathBoxDisclaimer close={this.handleCloseDisclaimerClick} />}
         {this.state.showHowToPlay && <DeathBoxHowToPlay close={this.handleCloseHowToPlayClick} />}
-        {this.state.gameOver && this.state.drinkCount < 0 && <GameOver newGame={this.handlePlayAgainClick}/>}
+        {this.state.gameOver && this.state.drinkCount < 0 && <GameOver finished={this.handleFinishedClick} newGame={this.handlePlayAgainClick}/>}
         <DeathBoxBoard
           piles={this.state.piles}
           handlePileClick={this.handlePileClick} />
