@@ -13,23 +13,23 @@ class DeathBoxHowToPlay extends React.Component {
           <div>
             <h1 className='center'>Welcome to Death Box</h1>
           </div>
-          <div className='left'>
-            <h2>How it Works</h2>
-            <p>
+          <div>
+            <h2 className='left'>How it Works</h2>
+            <p className='justified'>
               The point of the game is to correctly guess whether the next card in the deck is going to be higher or lower than your chosen spot on the board.
               If you get the required number of guesses right, your turn is over. If you guess wrong, you drink. A lot.
               You drink for the number of seconds that there are cards in the pile you chose.
             </p>
             <div className='spacing'/>
-            <h2>How to Play</h2>
-            <p>
+            <h2 className='left'>How to Play</h2>
+            <p className='justified'>
               First things first. On the right side, add some players. Once you've added everyone, it's player 1's turn.
-              Player 1 should choose click Higher or Lower, and then click a pile. The next card in the deck will appear on the pile they selected.
+              Player 1 should choose Higher or Lower, and then click a pile. The next card in the deck will appear on the pile they selected.
               If they were right, they guess again until they've guessed correctly the required number of times.
               If they guess wrong, they drink. And then they start their guesses again.
             </p>
             <div className='spacing'/>
-            <h2>Bonus Details</h2>
+            <h2 className='left'>Bonus Details</h2>
             <ul>
               <li>For some added fun, if the next card in the deck is the same as the one on top of the pile, your drink count is doubled.</li>
               <li>If you're a baby and want your turn to end, you can click the <img src={Baby} className='cryingBabyImage'/> button to skip to the next person.</li>
