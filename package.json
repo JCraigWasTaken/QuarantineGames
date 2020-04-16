@@ -27,5 +27,8 @@
   "homepage": "https://github.com/jhonof/ERN-Heroku-BuildPack#readme",
   "devDependencies": {
     "concurrently": "^5.0.0"
+  },
+  "dependencies": {
+    "socket.io": "^2.3.0"
   }
 }

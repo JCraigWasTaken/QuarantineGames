@@ -246,6 +246,11 @@ input {
   text-justify: auto;
 }
 
+div[disabled] {
+  pointer-events: none;
+  opacity: 0.65;
+}
+
 .deathBoxButtonChoice {
   display: flex;
   flex-direction: column;

@@ -7,6 +7,7 @@ class HomePage extends React.Component {
                 <h1>Pick a game</h1>
                 <a href={window.location.href+"death-roll"} className='submitButton'>Death Roll</a>
                 <a href={window.location.href+"death-box"} className='submitButton'>Death Box</a>
+                <a href={window.location.href+"chat"} className='submitButton'>Chat</a>
             </div>
         )
     }

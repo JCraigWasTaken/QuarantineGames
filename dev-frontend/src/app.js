@@ -12,6 +12,7 @@ import './app.css'
 import HomePage from '../pageComps/homePage.js'
 import DeathRollPage from '../pageComps/deathRollPage.js'
 import DeathBoxPage from '../pageComps/deathBoxPage.js'
+import Chat from '../pageComps/chat.js'
 
 class App extends React.Component{
 
@@ -40,6 +41,9 @@ class App extends React.Component{
                     </Route>
                     <Route exact path='/death-box'>
                         <DeathBoxPage/>
+                    </Route>
+                    <Route exact path='/chat'>
+                        <Chat/>
                     </Route>
                     <Route path='/'>
                         <h1>404 Here</h1>
