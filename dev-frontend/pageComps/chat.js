@@ -1,5 +1,9 @@
 import React from 'react';
-import { writeMessage, newMessage } from '../src/api.js';
+import { 
+  writeMessage
+  // , newMessage
+  , getAllMessages 
+} from '../src/api.js';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -12,7 +16,7 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    newMessage((messages) => this.setState({
+    getAllMessages(messages => this.setState({
       messages: messages
     }));
   }
@@ -29,9 +33,11 @@ class Chat extends React.Component {
       'message' : this.state.newMessage
     };
 
-    writeMessage(message);
-    this.setState({
-      newMessage: ''
+    writeMessage(message, messages => {
+      this.setState({
+        newMessage: '',
+        messages: messages
+      });
     });
   }
 

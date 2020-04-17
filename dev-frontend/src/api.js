@@ -7,12 +7,21 @@ if (process.env.NODE_ENV === 'production') {
   socket = openSocket(`http://localhost:${port}`);
 }
 
-function writeMessage(message) {
+function writeMessage(message, cb) {
   socket.emit('writeMessage', message);
-}
-
-function newMessage(cb) {
   socket.on('writeMessage', messages => cb(messages));
 }
 
-export { writeMessage, newMessage };
+// function newMessage(cb) {
+//   socket.on('writeMessage', messages => cb(messages));
+// }
+
+function getAllMessages(cb) {
+  socket.emit('getAllMessages');
+  socket.on('getAllMessages', messages => cb(messages));
+}
+
+export { 
+  writeMessage
+  // , newMessage
+  , getAllMessages };

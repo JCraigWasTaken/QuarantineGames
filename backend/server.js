@@ -31,9 +31,17 @@ if (process.env.NODE_ENV === 'production') {
 
 let messages = [];
 
-io.on('connection', (client) => {
+io.on('connection', client => {
+  client.on('getAllMessages', () => {
+    io.emit('getAllMessages', messages);
+  });
+
   client.on('writeMessage', message => {
     messages.unshift(message);
+    if (messages.length > 10) {
+      messages.splice(30);
+    }
     io.emit('writeMessage', messages);
   });
+
 });
