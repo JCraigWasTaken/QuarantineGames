@@ -12,10 +12,6 @@ function writeMessage(message, cb) {
   socket.on('writeMessage', messages => cb(messages));
 }
 
-// function newMessage(cb) {
-//   socket.on('writeMessage', messages => cb(messages));
-// }
-
 function getAllMessages(cb) {
   socket.emit('getAllMessages');
   socket.on('getAllMessages', messages => cb(messages));
@@ -23,5 +19,4 @@ function getAllMessages(cb) {
 
 export { 
   writeMessage
-  // , newMessage
   , getAllMessages };

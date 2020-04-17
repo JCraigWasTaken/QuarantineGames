@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   writeMessage
-  // , newMessage
   , getAllMessages 
 } from '../src/api.js';
 
@@ -11,7 +10,8 @@ class Chat extends React.Component {
     this.state = {
       messages: [],
       newMessage: '',
-      user: ''
+      user: '',
+      setUser: true
     }
   }
 
@@ -49,7 +49,14 @@ class Chat extends React.Component {
 
   handleUserNameChange = e => {
     this.setState({
-      user: e.target.value
+      user: e.target.value,
+    });
+  }
+
+  handleSetUserNameSubmit = e => {
+    e.preventDefault();
+    this.setState({
+      setUser: false
     });
   }
 
@@ -75,12 +82,19 @@ class Chat extends React.Component {
   render() {
     return (
       <div>
+        {this.state.setUser && 
+          <div className='small-popup'>
+            <div className='popup-content'>
+              <form onSubmit={this.handleSetUserNameSubmit}>
+                <h2>Set your user name.</h2>
+                <input type='text' value={this.state.user} onChange={this.handleUserNameChange}/>
+                <input type='submit' value='Set User Name' />
+              </form>
+            </div>
+          </div>
+        }
         <h1>Chat Room!</h1>
         <form onSubmit={this.handleMessageSubmit}>
-          <div>
-            <label>User Name:</label>
-            <input type='text' value={this.state.user} onChange={this.handleUserNameChange} />
-          </div>
           <div>
             <label>Message:</label>
             <input type='text' value={this.state.newMessage} onChange={this.handleNewMessageChange} />
