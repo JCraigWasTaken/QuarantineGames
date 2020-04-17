@@ -1,5 +1,5 @@
 import openSocket from 'socket.io-client';
-const socket = openSocket('/');
+const socket = openSocket('localhost:5000');
 
 function writeMessage(message) {
   socket.emit('writeMessage', message);

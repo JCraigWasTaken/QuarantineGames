@@ -1,31 +1,39 @@
+// Imports
 const express = require('express');
 const path = require('path');
+const http = require('http');
 const socketIO = require('socket.io');
-const socket = socketIO();
 
-// const router = express();
+// Create router
+const router = express();
+// Create server
+const server = http.Server(router);
+// Create socketIO
+const io = socketIO(server);
+// Set port
 const port = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV === 'production') {
-  console.log('Production');
-  socket.use(express.static(path.resolve(__dirname, '../prod-frontend')));
+// Start listening
+server.listen(port, () => {
+  console.log(`Listening on port ${port}.`);
+});
 
-  socket.on('connection', (client) => {
-    client.emit(path.resolve(__dirname, '../prod-frontend','index.html'));
+// In production, send bundled index.html
+if (process.env.NODE_ENV === 'production') {
+  router.use(express.static(path.resolve(__dirname, '../prod-frontend')));
+
+  router.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../prod-frontend', 'index.html'));
   });
 }
 
-// const port = 8080;
+// Socket connection handling
 
-// let messages = [];
-//
-// socket.on('connection', (client) => {
-//   client.on('writeMessage', message => {
-//     messages.unshift(message);
-//     socket.emit('writeMessage', messages);
-//   });
-// });
+let messages = [];
 
-socket.listen(port, () => {
-  console.log(`Listening on port ${port}.`);
+io.on('connection', (client) => {
+  client.on('writeMessage', message => {
+    messages.unshift(message);
+    io.emit('writeMessage', messages);
+  });
 });
