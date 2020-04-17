@@ -1,5 +1,6 @@
-import openSocket from 'socket.io-client';
-const socket = openSocket('localhost:5000');
+const openSocket = require('socket.io-client');
+const port = process.env.PORT || 5000;
+const socket = openSocket(`http://localhost:${port}`);
 
 function writeMessage(message) {
   socket.emit('writeMessage', message);
