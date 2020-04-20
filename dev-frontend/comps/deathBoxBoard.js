@@ -31,15 +31,18 @@ class DeathBoxBoard extends React.Component {
           onClick={this.handleCellClick}
           key={rowNumber + i}
           id={rowNumber + '~' + i}>
-            <Pile cards={this.props.piles[rowNumber][i].cards} />
+            <Pile 
+              cards={this.props.piles[rowNumber][i].cards} 
+              id={rowNumber + '~' + i}
+              handlePileClick={this.handlePileClick}/>
         </td>
       );
     }
     return row;
   }
 
-  handleCellClick = e => {
-    let idComponents = e.currentTarget.id.split('~');
+  handlePileClick = id => {
+    let idComponents = id.split('~');
     let row = idComponents[0];
     let column = idComponents[1];
     this.props.handlePileClick(row, column);

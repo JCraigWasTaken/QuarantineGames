@@ -24,7 +24,9 @@ class Pile extends React.Component {
         <Card
           number={this.props.cards[0].number}
           suit={this.props.cards[0].suit}
-          shadow={this.getShadowHeight()}/>
+          shadow={this.getShadowHeight()}
+          id={this.props.id}
+          handleCardClick={this.props.handlePileClick}/>
       </div>
     )
   }
