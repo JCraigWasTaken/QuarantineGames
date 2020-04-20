@@ -392,6 +392,10 @@ class DeathBoxPage extends React.Component {
   }
 
   handleBabyClick = () => {
+    if (this.state.drinkCount >= 0) {
+      return;
+    }
+    
     const player = this.setNextPlayer(0);
     const requiredToPass = this.state.requiredToPass;
     this.setState({
