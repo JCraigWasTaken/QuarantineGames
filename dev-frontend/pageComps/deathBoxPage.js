@@ -375,7 +375,7 @@ class DeathBoxPage extends React.Component {
       // if there are still players remaining
       if (players.length > 0) {
         // if removed last player
-        if (players.length >= index) {
+        if (index >= players.length) {
           currentPlayer = players[0].name;
         } else {
           currentPlayer = players[index].name;
