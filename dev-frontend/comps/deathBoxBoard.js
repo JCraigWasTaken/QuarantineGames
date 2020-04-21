@@ -34,11 +34,24 @@ class DeathBoxBoard extends React.Component {
             <Pile 
               cards={this.props.piles[rowNumber][i].cards} 
               id={rowNumber + '~' + i}
-              handlePileClick={this.handlePileClick}/>
+              handlePileClick={this.handlePileClick}
+              showCard={true}
+              shadow={this.getPileShadow(this.props.piles[rowNumber][i].cards.length)}/>
         </td>
       );
     }
     return row;
+  }
+
+  getPileShadow = numCards => {
+    let boxShadowString = '';
+    for (let i = 1; i < numCards; i++) {
+      boxShadowString += `${i}px ${i}px 0 0 black`;
+      if (i !== numCards - 1) {
+        boxShadowString += ',';
+      }
+    }
+    return boxShadowString;
   }
 
   handlePileClick = id => {

@@ -1,7 +1,7 @@
 /*Buttons*/
 
 button{
-  margin:25px;
+  margin:10px;
 }
 
 .submitButton{
@@ -89,8 +89,6 @@ img {
   display: inline;
   max-width: 20px;
   max-height: 15px;
-  width: auto;
-  height: auto;
 }
 
 /*Forms/Text Fields*/
@@ -202,6 +200,7 @@ input {
   margin-right: 30px;
   position: relative;
   background: white;
+  overflow-x: hidden;
 }
 
 .card-inside {
@@ -210,6 +209,17 @@ input {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.cardback {
+  height: 0;
+  overflow: hidden;
+  border: 1px solid black;
+  width: 8vw;
+  height: 11.2vw;
+  position: relative;
+  background: white;
+  overflow-x: hidden;
 }
 
 .card-suit {
@@ -262,7 +272,7 @@ input {
   text-align: center;
 }
 
-.playersTable {
+table {
   margin-left: auto;
   margin-right: auto;
 }
