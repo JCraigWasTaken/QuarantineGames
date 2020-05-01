@@ -88,6 +88,11 @@ class Card extends React.Component {
     }
   }
 
+  handleCardClick = e => {
+    let id = e.currentTarget.id;
+    this.props.handleCardClick(id);
+  }
+
   render() {
     let number = this.props.number;
     let suit = this.getSuit();
@@ -96,7 +101,9 @@ class Card extends React.Component {
     return (
         <div
           className='card rcorners5'
-          style={{boxShadow:this.props.shadow}}>
+          id={this.props.id}
+          style={{boxShadow:this.props.shadow}}
+          onClick={this.handleCardClick}>
           <div className='card-inside'>
             <div className='card-suit left'>
               <img src={suit} />
