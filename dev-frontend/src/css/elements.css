@@ -5,31 +5,31 @@ button{
 }
 
 .submitButton{
-  color: #494949;
+  color: var(--primary_dark);
   text-transform: uppercase;
   text-decoration: none;
-  background: #ffffff;
+  background: var(--primary_light);
   padding: 20px;
-  border: 4px solid #494949;
+  border: 4px solid var(--primary_dark);
   display: inline-block;
   transition: all 0.4s ease 0s;
 }
 
 .submitButton:hover{
-  color: #ffffff;
-  background: teal;
-  border-color: teal;
+  color: var(--primary_light);
+  background: var(--dominant_color);
+  border-color: var(--dominant_color);
   transition: all 0.4s ease 0s;
   cursor: pointer;
 }
 
 .submitButtonDisabled{
-  color: #494949;
+  color: var(--secondary_dark);
   text-transform: uppercase;
   text-decoration: none;
-  background: #ffffff;
+  background: var(--primary_light);
   padding: 20px;
-  border: 4px solid #494949;
+  border: 4px solid var(--secondary_dark);
   display: inline-block;
   transition: all 0.4s ease 0s;
   pointer-events: none;
@@ -41,28 +41,102 @@ button{
 }
 
 .submitButtonDisabled:hover{
-  color: #494949;
+  color: var(--secondary_dark);
   text-transform: uppercase;
   text-decoration: none;
-  background: #ffffff;
+  background: var(--primary_light);
   padding: 20px;
-  border: 4px solid #494949;
+  border: 4px solid var(--secondary_dark);
   display: inline-block;
   transition: all 0.4s ease 0s;
   cursor: unset;
 }
 
 .submitButtonSelected{
-  color: #ffffff;
+  color: var(--primary_light);
   text-transform: uppercase;
   text-decoration: none;
-  background: teal;
-  border-color: teal;
+  background: var(--dominant_color);
+  border-color: var(--dominant_color);
   cursor: pointer;
   padding: 20px;
-  border: 4px solid #494949;
+  border: 4px solid var(--primary_dark);
   display: inline-block;
   transition: all 0.4s ease 0s;
+}
+
+.homePageButtonRow{
+  position: relative;
+  width: 100%
+}
+
+.homePageButton{
+  position: relative;
+  color: var(--primary_dark);
+  margin-top: 50px;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.homePageButton:hover{
+  color: var(--dominant_color);
+}
+
+.homePageButton:before{
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary_dark);
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.homePageButton:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary_dark);
+}
+ 
+.homePageButton:hover:before{
+  visibility: visible;
+  width: 100%;
+}
+
+.homePageButton + div {
+  width:10px;
+  height:10px;
+  display: block;
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  right: 0;
+  top: 60px;
+  border-top: 2px solid var(--primary_dark);
+  border-right: 2px solid var(--primary_dark);
+}
+
+.homePageButton:hover + div {
+  transform: rotateZ(45deg);
+}
+
+.homePageButton + div div{
+  width:2px;
+  height:20px;
+  transform: rotateZ(45deg);
+  background-color: var(--primary_dark);
+  position: absolute;
+  top: -4px;
+  right: 5px;
 }
 
 /*Images*/
@@ -96,7 +170,7 @@ img {
 /*Forms/Text Fields*/
 
 input {
-  border: 1px solid #494949;
+  border: 1px solid var(--primary_dark);
   margin:25px;
 }
 
