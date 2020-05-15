@@ -121,9 +121,13 @@ class DeathBoxGame {
 	}
 
 	updatePiles() {
-		this.rearrangePiles();
 		this.updateAvailableCards();
 		this.updateCurrentPlayer();
+		this.rearrangePiles();
+		this.selectedChoice = 0;
+		if (this.drinkCount < 0) {
+			this.choiceMessage = '';
+		}
 	}
 
 	updateAvailableCards() {
@@ -241,7 +245,16 @@ class DeathBoxGame {
 
 	readyToDrink() {
 		this.getReadyToDrink = false;
-		this.countdownPlayer = this.players[this.players.indexOf(this.currentPlayer) + 1].name;
+		let currentPlayerIndex = this.players.indexOf(this.currentPlayer);
+
+		let nextPlayerIndex;
+		if (currentPlayerIndex === this.players.length - 1) {
+			nextPlayerIndex = 0;
+		} else {
+			nextPlayerIndex = currentPlayerIndex + 1;
+		}
+
+		this.countdownPlayer = this.players[nextPlayerIndex].name;
 	}
 
 	countdown() {
@@ -251,6 +264,7 @@ class DeathBoxGame {
 		if (this.drinkCount === 0) {
 			this.countdownPlayer = null;
 			this.drinkCount = -1;
+			this.choiceMessage = '';
 			return;
 		}
 

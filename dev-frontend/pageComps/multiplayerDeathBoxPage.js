@@ -95,7 +95,7 @@ class MultiplayerDeathBoxPage extends React.Component {
 			availableCards: game.availableCards.cards,
 			piles: game.piles,
 			remainingToPass: game.remainingToPass,
-			choiceMessage: game.ChoiceMessage,
+			choiceMessage: game.choiceMessage,
 			drinkCount: game.drinkCount,
 			players: game.players,
 			currentPlayer: game.currentPlayer.name,
@@ -143,8 +143,8 @@ class MultiplayerDeathBoxPage extends React.Component {
 
 	updatePiles = game => {
 		this.setState({
-			selectedChoice: 0,
-			choiceMessage: '',
+			selectedChoice: game.selectedChoice,
+			choiceMessage: game.choiceMessage,
 			showCard: false,
 			availableCards: game.availableCards.cards,
 			piles: game.piles,
@@ -184,7 +184,9 @@ class MultiplayerDeathBoxPage extends React.Component {
 		this.setState({
 			countdownPlayer: game.countdownPlayer,
 			drinkCount: game.drinkCount,
-			players: game.players
+			players: game.players,
+			getReadyToDrink: game.getReadyToDrink,
+			choiceMessage: game.choiceMessage
 		});
 	};
 
