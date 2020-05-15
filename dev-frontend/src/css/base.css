@@ -40,8 +40,17 @@
 .color-text_secondary{
   color: var(--secondary_dark)
 }
+.color-text_light{
+  color: var(--primary_light)
+}
 
 /*Tags*/
+
+@font-face {
+  font-family: 'JackFrost';
+  src: url(../../media/JackFrost.eot);
+  src: url(../../media/JackFrost.woff2) format('woff2'), url(../../media/JackFrost.otf) format('opentype');
+}
 
 body{
   background: var(--primary_light);
@@ -50,14 +59,14 @@ body{
 h1{
     font-size: 3rem;
     font-weight: 600;
-    font-family: Raleway, sans-serif;
+    font-family: JackFrost, sans-serif;
     margin: 10px;
 }
 
 h2, th{
     font-size: 1.5rem;
     font-weight: 500;
-    font-family: Raleway, sans-serif;
+    font-family: JackFrost, sans-serif;
     margin: 5px;
 }
 
