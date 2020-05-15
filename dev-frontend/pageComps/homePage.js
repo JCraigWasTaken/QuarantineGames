@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logo2 from '../media/logo2.png';
+import logo from '../media/Logo.png';
 
 class HomePage extends React.Component {
 
@@ -70,7 +70,7 @@ class HomePage extends React.Component {
                                         </div>
                                     </div>
                                     <div className={'flip-card-back flex_spaceCenter color-background_secondary'}>
-                                        <img src={logo2}></img>
+                                        <img src={logo}></img>
                                     </div>
                                 </div>
                             </div>
