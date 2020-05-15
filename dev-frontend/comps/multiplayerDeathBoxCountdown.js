@@ -11,6 +11,7 @@ class MultiplayerDeathBoxCountdown extends React.Component {
 				<div className='popup-content'>
 					<button
 						type='button'
+						className='submitButton'
 						onClick={ this.props.handleCountdownClick }
 					>
 						Count Down!
