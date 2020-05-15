@@ -1,7 +1,7 @@
 // Imports
 import Api from './api.js';
 
-const chatNamespace = 'chat';
+const chatNamespace = '/chat';
 
 class ChatApi extends Api {
 	constructor() {

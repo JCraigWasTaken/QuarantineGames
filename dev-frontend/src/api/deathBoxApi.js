@@ -1,6 +1,6 @@
 import Api from './api.js';
 
-const deathBoxNamespace = 'deathbox';
+const deathBoxNamespace = '/deathbox';
 
 class DeathBoxApi extends Api {
 	constructor(callbacks) {
