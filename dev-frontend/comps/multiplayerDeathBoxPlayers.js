@@ -52,7 +52,7 @@ class DeathBoxPlayers extends React.Component {
 						<p>{ players[i].name }</p>
 					</td>
 					<td className='textColumn center'>
-						<p>{ players[i].drinks }</p>
+						<p>{ players[i].numDrinks }</p>
 					</td>
 					<td className='imageColumn' onClick={ this.handleBabyClick }>
 						{ players[i].name === this.props.currentPlayer && <img src={ Baby } className='cryingBabyImage' /> }
@@ -92,6 +92,9 @@ class DeathBoxPlayers extends React.Component {
 		return (
 			<div className='deathBoxPlayers'>
 				<div>
+					<h2>Room Id: { this.props.roomId }</h2>
+				</div>
+				<div>
 					<button className='submitButton' onClick={ this.props.onHowToPlayClick }>What is going on?</button>
 				</div>
 				{ this.props.players.length < 2 &&
@@ -99,10 +102,6 @@ class DeathBoxPlayers extends React.Component {
 						<h2>Please add at least 2 players.</h2>
 					</div>
 				}
-				<form className='center' onSubmit={ this.handleAddPlayerClick }>
-					<button type='submit' className='submitButton'>Add Player</button>
-					<input id='newPlayer' value={ this.state.newPlayer } onChange={ this.handleNewPlayerChange } autoComplete='off' />
-				</form>
 				<div>
 					{ this.getPlayers() }
 				</div>

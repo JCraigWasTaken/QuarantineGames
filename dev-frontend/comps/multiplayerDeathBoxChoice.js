@@ -28,7 +28,8 @@ class DeathBoxChoice extends React.Component {
 					<button
 						type='button'
 						id={ 1 }
-						className={ 'submitButton' + (this.props.drinkCount >= 0 || !this.props.readyToPlay ? 'Disabled' : (this.props.selectedButton === 1 ? 'Selected' : '')) }
+						className={ 'submitButton' + (!this.props.isCurrentPlayer || this.props.drinkCount >= 0 || !this.props.readyToPlay ?
+							'Disabled' : '') + (this.props.selectedButton === 1 ? 'Selected' : '') }
 						onClick={ this.handleChoiceClick }
 					>
 						Higher
@@ -54,7 +55,8 @@ class DeathBoxChoice extends React.Component {
 					<button
 						type='button'
 						id={ -1 }
-						className={ 'submitButton' + (this.props.drinkCount >= 0 || !this.props.readyToPlay ? 'Disabled' : (this.props.selectedButton === -1 ? 'Selected' : '')) }
+						className={ 'submitButton' + (!this.props.isCurrentPlayer || this.props.drinkCount >= 0 || !this.props.readyToPlay ?
+							'Disabled' : '') + (this.props.selectedButton === -1 ? 'Selected' : '') }
 						onClick={ this.handleChoiceClick }
 					>
 						Lower
@@ -63,7 +65,7 @@ class DeathBoxChoice extends React.Component {
 				{ this.props.readyToPlay &&
 					<div>
 						<div>
-							<p>Guesses Remaining: { this.props.remainingToPass }</p>
+							<p>{ this.props.currentPlayer } Guesses Remaining: { this.props.remainingToPass }</p>
 						</div>
 						<div>
 							<h2>{ this.props.message }</h2>
@@ -73,11 +75,11 @@ class DeathBoxChoice extends React.Component {
 								<div>
 									<h1>{ this.props.drinkCount }</h1>
 								</div>
-								{ this.props.getReadyToDrink &&
+								{ this.props.isCurrentPlayer && this.props.getReadyToDrink &&
 									<div>
 										<button
 											type='button'
-											onClick={ this.props.handleTimerClick }
+											onClick={ this.props.handleReadyToDrinkClick }
 											className='submitButton' >
 											Ready To Drink!
                     </button>
