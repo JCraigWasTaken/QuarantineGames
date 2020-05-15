@@ -1,5 +1,5 @@
 class Deck {
-	constructor(suits = ['spade', 'club', 'heart', 'diamond'], numbers = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']) {
+	constructor(suits = ['spade', 'club', 'heart', 'diamond'], numbers = ['A', '2', '3', '4', '5']/*, '6', '7', '8', '9', '10', 'J', 'Q', 'K']*/) {
 		this.cards = this.generateCards(suits, numbers);
 	}
 
@@ -49,6 +49,10 @@ class Deck {
 			this.cards.splice(0, numCards);
 			return card;
 		}
+	}
+
+	addCards(cards) {
+		this.cards.unshift(cards);
 	}
 
 	static compareCards(card1, card2) {

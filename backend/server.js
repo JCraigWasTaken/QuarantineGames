@@ -116,6 +116,21 @@ io.of(deathBoxNamespace).on('connection', socket => {
 	socket.on('pileClicked', (row, column) => {
 		let game = deathBoxServer.pileClicked(socket.roomId, row, column);
 		io.of(deathBoxNamespace).to(socket.roomId).emit('pileClicked', game);
+
+		setTimeout(() => {
+			game = deathBoxServer.updatePiles(socket.roomId);
+			io.of(deathBoxNamespace).to(socket.roomId).emit('updatePiles', game);
+		}, 1000);
+	});
+
+	socket.on('readyToDrink', () => {
+		let game = deathBoxServer.readyToDrink(socket.roomId);
+		io.of(deathBoxNamespace).to(socket.roomId).emit('countdown', game);
+	});
+
+	socket.on('countdown', () => {
+		let game = deathBoxServer.countdown(socket.roomId);
+		io.of(deathBoxNamespace).to(socket.roomId).emit('countdown', game);
 	});
 
 	socket.on('disconnect', () => {

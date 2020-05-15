@@ -1,7 +1,8 @@
 import React from 'react';
 import DeathBoxApi from '../src/api/deathBoxApi.js';
 import DeathBoxBoard from '../comps/deathBoxBoard.js';
-import DeathBoxChoice from '../comps/deathBoxChoice.js';
+import MultiplayerDeathBoxChoice from '../comps/multiplayerDeathBoxChoice.js';
+import MultiplayerDeathBoxCountdown from '../comps/multiplayerDeathBoxCountdown.js';
 import DeathBoxMultiplayerStart from '../comps/deathBoxMultiplayerStart.js';
 import DeathBoxHowToPlay from '../comps/deathBoxHowToPlay.js';
 import MultiplayerDeathBoxPlayers from '../comps/multiplayerDeathBoxPlayers.js';
@@ -19,7 +20,6 @@ class MultiplayerDeathBoxPage extends React.Component {
 			selectedChoice: 0,
 			availableCards: null,
 			piles: null,
-			requiredToPass: null,
 			remainingToPass: null,
 			choiceMessage: null,
 			drinkCount: -1,
@@ -32,17 +32,21 @@ class MultiplayerDeathBoxPage extends React.Component {
 			showHowToPlay: false,
 			row: -1,
 			column: -1,
-			showCard: false
+			showCard: false,
+			countdownPlayer: null
 		};
 
-		let callbacks = {
+		this.showCardTimer = 0;
+
+		this.deathBoxApi = new DeathBoxApi({
 			'createRoom': this.gameCreated,
 			'joinRoom': this.gameJoined,
 			'updateChoice': this.updatedChoice,
 			'pileClicked': this.pileClicked,
-			'removePlayer': this.removePlayer
-		};
-		this.deathBoxApi = new DeathBoxApi(callbacks);
+			'removePlayer': this.removePlayer,
+			'updatePiles': this.updatePiles,
+			'countdown': this.countdown
+		});
 	}
 
 	joinGame = (room, name) => {
@@ -65,15 +69,13 @@ class MultiplayerDeathBoxPage extends React.Component {
 				selectedChoice: game.selectedChoice,
 				availableCards: game.availableCards.cards,
 				piles: game.piles,
-				requiredToPass: game.requiredToPass,
 				remainingToPass: game.remainingToPass,
 				choiceMessage: game.ChoiceMessage,
 				drinkCount: game.drinkCount,
 				players: game.players,
-				currentPlayer: game.currentPlayer,
+				currentPlayer: game.currentPlayer.name,
 				getReadyToDrink: game.getReadyToDrink,
-				gameOver: game.gameOver,
-				showCard: game.showCard
+				gameOver: game.gameOver
 			});
 		}
 	};
@@ -92,15 +94,13 @@ class MultiplayerDeathBoxPage extends React.Component {
 			selectedChoice: game.selectedChoice,
 			availableCards: game.availableCards.cards,
 			piles: game.piles,
-			requiredToPass: game.requiredToPass,
 			remainingToPass: game.remainingToPass,
 			choiceMessage: game.ChoiceMessage,
 			drinkCount: game.drinkCount,
 			players: game.players,
-			currentPlayer: game.currentPlayer,
+			currentPlayer: game.currentPlayer.name,
 			getReadyToDrink: game.getReadyToDrink,
-			gameOver: game.gameOver,
-			showCard: game.showCard
+			gameOver: game.gameOver
 		});
 	};
 
@@ -133,9 +133,23 @@ class MultiplayerDeathBoxPage extends React.Component {
 		this.setState({
 			selectedChoice: game.selectedChoice,
 			choiceMessage: game.choiceMessage,
+			remainingToPass: game.remainingToPass,
 			drinkCount: game.drinkCount,
 			getReadyToDrink: game.getReadyToDrink,
-			showCard: game.showCard
+			showCard: true,
+			currentPlayer: game.currentPlayer.name
+		});
+	};
+
+	updatePiles = game => {
+		this.setState({
+			selectedChoice: 0,
+			choiceMessage: '',
+			showCard: false,
+			availableCards: game.availableCards.cards,
+			piles: game.piles,
+			currentPlayer: game.currentPlayer.name,
+			remainingToPass: game.remainingToPass
 		});
 	};
 
@@ -154,7 +168,23 @@ class MultiplayerDeathBoxPage extends React.Component {
 	removePlayer = game => {
 		this.setState({
 			players: game.players,
-			currentPlayer: game.currentPlayer
+			currentPlayer: game.currentPlayer.name
+		});
+	};
+
+	handleReadyToDrinkClick = () => {
+		this.deathBoxApi.readyToDrink();
+	};
+
+	handleCountdownClick = () => {
+		this.deathBoxApi.countdown();
+	};
+
+	countdown = game => {
+		this.setState({
+			countdownPlayer: game.countdownPlayer,
+			drinkCount: game.drinkCount,
+			players: game.players
 		});
 	};
 
@@ -179,23 +209,30 @@ class MultiplayerDeathBoxPage extends React.Component {
 						newGame={ this.handlePlayAgainClick }
 					/>
 				}
+				{ this.state.countdownPlayer === this.state.myName &&
+					<MultiplayerDeathBoxCountdown
+						handleCountdownClick={ this.handleCountdownClick }
+					/>
+				}
 				{ !this.state.firstLoad &&
 					<div className="deathBox">
 						<DeathBoxBoard
 							piles={ this.state.piles }
 							handlePileClick={ this.handlePileClick }
 						/>
-						<DeathBoxChoice
+						<MultiplayerDeathBoxChoice
 							readyToPlay={ this.state.players.length >= 2 }
 							selectedButton={ this.state.selectedChoice }
 							handleChoiceClick={ this.handleChoiceClick }
-							handleTimerClick={ this.handleTimerClick }
+							handleReadyToDrinkClick={ this.handleReadyToDrinkClick }
 							drinkCount={ this.state.drinkCount }
 							getReadyToDrink={ this.state.getReadyToDrink }
 							remainingToPass={ this.state.remainingToPass }
 							message={ this.state.choiceMessage }
 							showCard={ this.state.showCard }
 							availableCards={ this.state.availableCards }
+							currentPlayer={ this.state.currentPlayer }
+							isCurrentPlayer={ this.state.myName === this.state.currentPlayer }
 						/>
 						<MultiplayerDeathBoxPlayers
 							roomId={ this.state.roomId }

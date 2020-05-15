@@ -5,6 +5,10 @@ class DeathBoxServer {
 		this.games = [];
 	}
 
+	findGame(roomId) {
+		return this.games.find(g => g.roomId === roomId);
+	}
+
 	createGame(roomId, player) {
 		let game = new DeathBoxGame(roomId, player);
 		this.games.push(game);
@@ -48,8 +52,22 @@ class DeathBoxServer {
 		return game;
 	}
 
-	findGame(roomId) {
-		return this.games.find(g => g.roomId === roomId);
+	updatePiles(roomId) {
+		let game = this.findGame(roomId);
+		game.updatePiles();
+		return game;
+	}
+
+	readyToDrink(roomId) {
+		let game = this.findGame(roomId);
+		game.readyToDrink();
+		return game;
+	}
+
+	countdown(roomId) {
+		let game = this.findGame(roomId);
+		game.countdown();
+		return game;
 	}
 }
 
