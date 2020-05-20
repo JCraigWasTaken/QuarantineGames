@@ -1,53 +1,97 @@
 import React from 'react';
 
-import logo from '../media/Logo.png';
+import mainLogo from '../media/main-logo.png';
+import deathBoxLogo from '../media/deathBox-logo.png';
+import deathRollLogo from '../media/deathRoll-logo.png';
 
 class HomePage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
+        this.initState = {
             link:null,
-            flipAnimation: '',
+            flipClass: '',
             buttonAnimation: '',
             buttonVisible: 'hidden',
-            gameTitle: 'Welcome to Bored Games!',
-            gameText : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            firstLogo: deathBoxLogo,
+            firstTitle: '',
+            firstInstructions : '',
+            firstClass: '',
+            secondLogo: mainLogo,
+            secondTitle:'',
+            secondInstructions:'',
+            secondClass: '',
+            cardVisible: 'hidden',
+            reloadID:[0,1,2]
         };
+        this.state = this.initState;
       }
 
-    pickGame = e =>{
-        if(e.target.id == 'DeathBox'){
+    pickGame = (e) =>{
+        var target = e.target.id;
+        var timeoutTime = 0;
+        if(this.state.flipClass == ' flip-card-inner-flipped'){
             this.setState({
-                link:window.location.href+"death-box",
-                flipClass:'flip-card-inner-flipped',
-                buttonAnimation:'fadeText 6s ease-out forwards',
-                buttonVisible: 'visible',
-            })
-            var timer = setInterval(()=>{
-                this.setState({
-                    flipClass:'',
-                    gameTitle: 'Death Box',
-                    gameText : 'Some blurb about death box blah blah Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                }); 
-                clearInterval(timer);
-            }, 2000);
-        }else if(e.target.id == 'DeathRoll'){
-            this.setState({
-                link:window.location.href+"death-roll",
-                flipClass:'flip-card-inner-flipped',
-                buttonAnimation:'fadeText 6s ease-out forwards',
-                buttonVisible: 'visible',
-            })
-            var timer = setInterval(()=>{
-                this.setState({
-                    flipClass:'',
-                    gameTitle: 'Death Roll',
-                    gameText : 'Some blurb about death roll blah blah Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                }); 
-                clearInterval(timer);
-            }, 2000);
+                flipClass: '',
+                cardVisible: 'hidden',
+                buttonAnimation:'',
+                buttonVisible: 'hidden'
+            });
+            timeoutTime = 2000;
         }
+        setTimeout(()=>{
+            if(target == 'DeathBox'){
+                if (this.state.secondTitle != 'Death Box'){
+                    this.setState({
+                        firstLogo: this.state.secondLogo,
+                        firstTitle: this.state.secondTitle,
+                        firstInstructions: this.state.secondInstructions,
+                        firstClass:'card-1',
+                        secondLogo: deathBoxLogo,
+                        secondTitle: 'Death Box',
+                        secondInstructions: 'death box instructions here',
+                        secondClass:'card-2',
+                        link:window.location.href+"death-box",
+                        buttonAnimation:'fadeText 3s ease-out forwards',
+                        buttonVisible: 'visible',
+                        cardVisible: 'visible',
+                        reloadID:[Date.now(),Date.now()+1,Date.now()+2]
+                    })
+                }
+            }else if(target == 'DeathRoll'){
+                if (this.state.secondTitle != 'Death Roll'){
+                    this.setState({
+                        firstLogo: this.state.secondLogo,
+                        firstTitle: this.state.secondTitle,
+                        firstInstructions: this.state.secondInstructions,
+                        firstClass:'card-1',
+                        secondLogo: deathRollLogo,
+                        secondTitle: 'Death Roll',
+                        secondInstructions: 'death roll instructions here',
+                        secondClass:'card-2',
+                        link:window.location.href+"death-roll",
+                        buttonAnimation:'fadeText 3s ease-out forwards',
+                        buttonVisible: 'visible',
+                        cardVisible: 'visible',
+                        reloadID:[Date.now(),Date.now()+1,Date.now()+2]
+                    })
+                }
+            }
+        }, timeoutTime);
+    }
+
+    flipCard = () =>{
+            if (this.state.flipClass == '')
+                this.setState({
+                    flipClass:' flip-card-inner-flipped',
+                    cardVisible: 'hidden'
+                })
+            else(
+                this.setState({
+                    flipClass:'',
+                    cardVisible: 'hidden'
+                })
+            )
     }
 
     openLink = () =>{
@@ -61,22 +105,38 @@ class HomePage extends React.Component {
                 <div className='flex-column margin_horizontal4 gameCard showDesktop_HideTablet' style={{'flex':'5', 'margin-left':'0'}}>
                     <h1 className='color-text_dominant' style = {{'margin-left':'0', 'flex':'2', 'marginTop':'30px', 'marginBottom':'50px'}}>Bored Games</h1>
                         <div className ='flex-column flex_spaceCenter' style={{'height':'100%'}}>
-                            <div class="flip-card">
-                                <div class={'flip-card-inner '+this.state.flipClass}>
-                                    <div id='explanationHolder' className={'flip-card-front flex_spaceCenter color-background_secondary color-text_light'} style={{'flex':'7'}}>
-                                        <div className='margin_vertical25 padding_horizontal8' style={{'textAlign':'center'}}>
-                                            <h2 className='margin_vertical25'>{this.state.gameTitle}</h2>
-                                            <p>{this.state.gameText}</p>
+                            <div className = 'flip-cardPile'>
+                                <div key = {this.state.reloadID[0]} className = {"flip-card "+this.state.firstClass+this.state.flipClass}  style = {{'visibility':this.state.cardVisible}}>
+                                    <div class={'flip-card-inner'}>
+                                        <div id='explanationHolder' className={'flip-card-front flex_spaceCenter color-text_light'} style={{'flex':'7'}}>
+                                            <div className='padding_horizontal8' style={{'textAlign':'center'}}>
+                                                <img src={this.state.firstLogo}></img>
+                                            </div>
+                                        </div>
+                                        <div className={'flip-card-back flex_spaceCenter'}>
+                                            <h2 className='margin_vertical25'>{this.state.firstTitle}</h2>
+                                            <p>{this.state.firstInstructions}</p>
                                         </div>
                                     </div>
-                                    <div className={'flip-card-back flex_spaceCenter color-background_secondary'}>
-                                        <img src={logo}></img>
+                                </div>
+                                <div key = {this.state.reloadID[1]} className = {"flip-card "+this.state.secondClass+this.state.flipClass}>
+                                    <div class={'flip-card-inner'}>
+                                        <div id='explanationHolder' className={'flip-card-front flex_spaceCenter color-text_light'} style={{'flex':'7'}}>
+                                            <div className='padding_horizontal8' style={{'textAlign':'center'}}>
+                                                <img src={this.state.secondLogo}></img>
+                                            </div>
+                                        </div>
+                                        <div className={'flip-card-back flex_spaceCenter'}>
+                                            <h2 className='margin_vertical25'>{this.state.secondTitle}</h2>
+                                            <p>{this.state.secondInstructions}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id='buttonRow' style={{'flex':'1', 'marginTop':'50px'}}>
-                                <div className='flex-row flex_spaceCenter' style={{'animation':this.state.buttonAnimation, 'visibility':this.state.buttonVisible}}>
-                                    <button className='submitButton' style={{'width':'90%'}} onClick={this.openLink}>Play</button>
+                            <div id='buttonRow' style={{'flex':'2', 'marginTop':'50px'}}>
+                                <div key = {this.state.reloadID[2]} className='flex-row flex_spaceCenter' style={{'animation':this.state.buttonAnimation, 'visibility':this.state.buttonVisible}}>
+                                    <button className='submitButton' style={{'width':'50%'}} onClick={this.flipCard}>Rules</button>
+                                    <button className='submitButton' style={{'width':'50%'}} onClick={this.openLink}>Play</button>
                                 </div>
                             </div>
                         </div>
