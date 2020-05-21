@@ -10,7 +10,7 @@ constructor(props) {
   render() {
     return (
       <div className='big-popup'>
-        <div className='popup-content padding_horizontal4'>
+        <div className='popup-content padding_horizontal4 flex-column flex_spaceEvenly'>
           <div>
             <h1 className='center'>{this.props.title}</h1>
           </div>
