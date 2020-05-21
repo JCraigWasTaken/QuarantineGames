@@ -23,6 +23,10 @@
   background: var(--dominant_color);
   border-color: var(--dominant_color);
 }
+.color-background_dominant{
+  background: var(--dominant_color);
+  border-color: var(--dominant_color);
+}
 .color-background_primary{
   background: var(--primary_light);
   border-color:  var(--primary_light);

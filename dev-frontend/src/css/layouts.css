@@ -1,7 +1,6 @@
 /*Parent Child Layouts*/
 
 .container{
-    min-height: 768px;
     position:fixed;
     padding:0;
     margin:0;
@@ -166,6 +165,9 @@
 }
 /* For Tablet and Mobile (maximum  1024px width) */
 @media (max-width: 1024px){
+    .container{
+        overflow-y: scroll;
+    }
     .flex-RowToColumn_Tablet{
         display: flex;
         flex-direction: column;
@@ -184,5 +186,13 @@
 /* For Mobile (under 768px width) */
 
 @media (max-width: 768px){
-
+    .showTablet_HideMobile,  .showTablet_HideMobile h1, .showTablet_HideMobile h2, .showTablet_HideMobile p{
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        flex: 0 !important;
+        font-size: 0 !important;
+    }
 }
