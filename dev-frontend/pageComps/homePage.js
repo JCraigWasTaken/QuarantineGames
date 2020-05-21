@@ -108,10 +108,10 @@ class HomePage extends React.Component {
 
     render(){
         return(
-            <div className='flex-RowToColumn_Tablet padding_horizontal8' style={{'height':'100%'}}>
+            <div className='flex-RowToColumn_Tablet padding_horizontal4' style={{'height':'100%'}}>
                 {/*Desktop Layout Here Down*/}
                 <div className='flex-column margin_horizontal4 showDesktop_HideTablet' style={{'flex':'5', 'margin-left':'0'}}>
-                    <h1 className='color-text_dominant' style = {{'margin-left':'0', 'flex':'2', 'marginTop':'30px', 'marginBottom':'50px'}}>Bored Games</h1>
+                    <h1 className='color-text_dominant' style = {{'margin-left':'0', 'marginTop':'30px', 'marginBottom':'15px'}}>Bored Games</h1>
                     <div className ='flex-column flex_spaceCenter' style={{'height':'100%'}}>
                         <div className = 'flip-cardPile'>
                             <div key = {this.state.reloadID[0]} className = {"flip-card "+this.state.firstClass+this.state.flipClass}  style = {{'visibility':this.state.cardVisible}}>
@@ -141,7 +141,7 @@ class HomePage extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div id='buttonRow' style={{'flex':'2', 'marginTop':'50px'}}>
+                        <div id='buttonRow' style={{'marginTop':'25px'}}>
                             <div key = {this.state.reloadID[2]} className='flex-row flex_Center' style={{'animation':this.state.buttonAnimation, 'visibility':this.state.buttonVisible}}>
                                 <button className='submitButton' style={{'width':'50%'}} onClick={this.flipCard}>Rules</button>
                                 <button className='submitButton' style={{'width':'50%'}} onClick={this.openLink}>Play</button>
@@ -167,7 +167,7 @@ class HomePage extends React.Component {
                 </div>
                 {/*Mobile And Tablet Layout Here Down*/}
                 <div className='showTablet_HideDesktop' style={{'textAlign':'center', 'flex':'1'}}>
-                    <h1 className='color-text_dominant' style = {{'margin-left':'0', 'marginTop':'30px', 'marginBottom':'50px'}}>Bored Games</h1>
+                    <h1 className='color-text_dominant' style = {{'margin-left':'0', 'marginTop':'30px', 'marginBottom':'15px'}}>Bored Games</h1>
                 </div>
                 <div className='flex-column flex_spacestretch margin_vertical25 showTablet_HideDesktop' style={{'flex':'4'}}>
                     <MobileGameCard gameImage={deathBoxLogo} gameTitle={'Death Box'} instructions={this.deathBoxInstructions} link={this.deathBoxLink} openLink={this.props.openLink} instructionsModalContent={<DeathBoxHowToPlayFrontPage/>}/>

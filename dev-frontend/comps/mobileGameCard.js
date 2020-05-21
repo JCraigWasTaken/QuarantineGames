@@ -42,7 +42,7 @@ class MobileGameCard extends React.Component {
                     </div>
                 </button>
                 {this.state.extendCardVisible &&
-                    <div className='flex-column padding10 margin_horizontal4 padding_horizontal4 color-background_secondary color-text_light flex_stretch'>
+                    <div className='flex-column padding10 margin_horizontal4 padding_horizontal4 color-background_secondary color-text_light flex_stretch' style={{'height':'230px'}}>
                         <button className='submitButton' onClick={this.instructionsToggle}>Instructions</button>
                         <button className='submitButton' onClick={this.openLink}>Play</button>
                     </div>

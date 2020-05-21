@@ -127,20 +127,10 @@
 }
 
 /* For Desktop (over 1024px width)*/
-@media (min-width: 1024px){
+@media (min-width: 1025px){
     .flex-RowToColumn_Tablet{
         display: flex;
         flex-direction: row;
-    }
-
-    .showTablet_HideDesktop {
-        opacity: 0 !important;
-        height: 0 !important;
-        width: 0 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        flex: 0 !important;
-        font-size: 0 !important;
     }
 
     .showTablet_HideDesktop, .showTablet_HideDesktop h1, .showTablet_HideDesktop h2, .showTablet_HideDesktop p{
@@ -155,12 +145,12 @@
 }
 
 /* For Tablet and Desktop (minimum 768px width) */
-@media (min-width: 768px){
+@media (min-width: 767px){
 
 }
 
 /* For Tablet (maximum  1024px width, minimum 768px width) */
-@media (min-width: 768px) and (max-width: 1024px){
+@media (min-width: 767px) and (max-width: 1024px){
 
 }
 /* For Tablet and Mobile (maximum  1024px width) */
