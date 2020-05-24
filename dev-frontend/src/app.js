@@ -30,22 +30,24 @@ class App extends React.Component{
 
     render(){
         return(
-            <Router>
-                <Switch>
-                    <Route exact path='/'>
-                        <HomePage/>
-                    </Route>
-                    <Route exact path='/death-roll'>
-                        <DeathRollPage/>
-                    </Route>
-                    <Route exact path='/death-box'>
-                        <DeathBoxPage/>
-                    </Route>
-                    <Route path='/'>
-                        <h1>404 Here</h1>
-                    </Route>
-                </Switch>
-            </Router>
+            <div className='container'>
+                <Router>
+                    <Switch>
+                        <Route exact path='/'>
+                            <HomePage openLink={this.openLink}/>
+                        </Route>
+                        <Route exact path='/death-roll'>
+                            <DeathRollPage/>
+                        </Route>
+                        <Route exact path='/death-box'>
+                            <DeathBoxPage/>
+                        </Route>
+                        <Route path='/'>
+                            <h1>404 Here</h1>
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
         )
     }
 }
